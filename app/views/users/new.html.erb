@@ -1,0 +1,28 @@
+<h1>Insert User</h1>
+
+<%= form_with model: @user, local: true do |f| %>
+
+  <!-- Username -->
+  <div>
+    <%= f.label :username, "Username" %><br>
+    <%= f.text_field :username %>
+  </div>
+
+  <!-- Email -->
+  <div>
+    <%= f.label :email, "Email" %><br>
+    <%= f.email_field :email %>
+  </div>
+
+  <!-- Sex (select field) -->
+  <div>
+    <%= f.label :sex, "Sex" %><br>
+    <%= f.select :sex, [["Male", 1], ["Female", 0]] %>
+  </div>
+
+  <!-- Submit -->
+  <div>
+    <%= f.submit "Create User" %>
+  </div>
+
+<% end %>
