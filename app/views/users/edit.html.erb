@@ -1,0 +1,28 @@
+<h1>Edit User</h1>
+
+<%= form_with model: @user, local: true do |form| %>
+  <div>
+    <%= form.label :username, "Username" %><br>
+    <%= form.text_field :username %>
+  </div>
+
+  <div>
+    <%= form.label :email, "Email" %><br>
+    <%= form.email_field :email %>
+  </div>
+
+  <div>
+    <%= form.label :sex, "Giới tính" %><br>
+    <%= form.select :sex,
+        [["Nam", true], ["Nữ", false]],
+        {},                         # options
+        {}                          # html options
+    %>
+  </div>
+
+  <div>
+    <%= form.submit "Update User" %>
+  </div>
+<% end %>
+
+<%= link_to "Cancel", users_path %>

@@ -1,6 +1,6 @@
 <h1>Users</h1>
 
-<%= link_to "➕ New User","/users/new",class: "btn btn-new" %>
+<%= link_to "➕ New User", new_user_path,class: "btn btn-new" %>
 
 <table class="user-table">
   <thead>
@@ -21,10 +21,11 @@
         <td class="actions">
           <%= link_to "Show", user_path(user), class: "btn btn-show" %>
           <%= link_to "Edit", edit_user_path(user), class: "btn btn-edit" %>
-          <%= link_to "Delete", user_path(user),
-                method: :delete,
-                data: { confirm: "Are you sure?" },
-                class: "btn btn-delete" %>
+          <%= link_to "Delete",
+            user_path(user),
+            method: :delete,
+            data: { confirm: "Are you sure?" },
+            class: "btn btn-delete" %>
         </td>
       </tr>
     <% end %>
