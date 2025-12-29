@@ -1,0 +1,31 @@
+<% content_for :page_title do %>
+<% end %>
+
+<%= link_to "➕ New Task", new_task_path,class: "btn btn-new" %>
+
+<%= form_with url: tasks_path, method: :get, local: true, class: "search-form" do |f| %>
+  <div class="search-form">
+    <%= f.text_field :name , placeholder: "Search task name...", value: params[:name] %>
+
+    <%= f.date_field :created_at, value: params[:created_at], class: "date-picker" %>
+
+    <%= f.submit "Search", class: "btn btn-edit" %>
+  </div>
+<% end %>
+<table class="user-table">
+  <thead>
+    <tr>
+      <th>Name task</th>
+      <th>Description</th>
+      <th>position</th>
+      <th>Ngày tạo</th>
+      <th>Completed</th>
+      <th>Project</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+
+  <tbody>
+   <%= render partial: "task_row", collection: @tasks, as: :task %>
+  </tbody>
+</table>

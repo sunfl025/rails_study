@@ -1,0 +1,26 @@
+<%= form_with model: @task,local:true do |form| %>
+  <div>
+    <%= form.label :name %>
+    <%= form.text_field :name, placeholder: "Enter name task" %>
+  </div>
+  <div>
+    <%= form.label :description %>
+    <%= form.text_field :description, placeholder: "Enter description task" %>
+  </div>
+    <div>
+    <%= form.label :position %>
+    <%= form.number_field:position, placeholder: "Enter position" %>
+  </div>
+    <div>
+   <%= form.label :completed %>
+  <%= form.select :completed,[['not finished', false], ['finished', true]] %>
+   </div>
+
+  <div>
+    <%= form.label :user_id %>
+    <%= form.number_field :user_id, placeholder: "Enter user id" %>
+  </div>
+ 
+  <%= form.submit %>
+<% end %>
+<%= link_to "Cancel",tasks_path%>

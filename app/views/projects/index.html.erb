@@ -1,0 +1,13 @@
+<% content_for :page_title do %>
+<% end %>
+
+<div id="projects">
+<%= link_to "New project", new_project_path %>
+  <% @projects.each do |project| %>
+    <div>
+    <%= link_to project.name, project_path(project.id) %>
+    <%= link_to "Edit", edit_project_path(project.id) %>
+    <%= link_to "Delete", project_path(project.id), method: :delete, data: { confirm: "Are you sure?" } %>
+    </div>
+  <% end %>
+</div>

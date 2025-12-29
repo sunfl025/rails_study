@@ -2,8 +2,22 @@ class TasksController < ApplicationController
     before_action :set_task, only: %i[ show edit update destroy ]
     
     def index
-        @tasks = Task.all
+    @tasks = Task.all
+
+        if params[:name].present?
+            @tasks = @tasks.joins(:project)
+                    .where(
+                    "tasks.name LIKE :name OR tasks.description LIKE :name OR projects.name LIKE :name",
+                    name: "%#{params[:name]}%"
+                )
+        end
+
+        if params[:created_at].present?
+            date = Time.zone.parse(params[:created_at])
+            @tasks = @tasks.where(created_at: date.beginning_of_day..date.end_of_day)
+        end
     end
+
     
     def show
     end
@@ -13,13 +27,15 @@ class TasksController < ApplicationController
     end
     
     def create
-        @task = Task.new(task_params)
-        if @task.save
-        redirect_to tasks_path, notice: "Task created successfully"
-        else
-        render :new, status: :unprocessable_entity
-        end
+    @task = Task.new(task_params)
+
+    if @task.save
+        redirect_to tasks_path
+    else
+        render json: { errors: @task.errors.full_messages }, status: :unprocessable_entity
     end
+    end
+
     
     def edit
     end
@@ -50,6 +66,6 @@ class TasksController < ApplicationController
     end
     
     def task_params
-        params.require(:task).permit(:title, :description, :user_id)
+        params.require(:task).permit( :name, :description, :position, :completed, :project_id)
     end
 end

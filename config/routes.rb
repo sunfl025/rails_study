@@ -11,6 +11,8 @@ Rails.application.routes.draw do
       get :by_user
     end
   end
+  get "/projects", to: "projects#index"
+  resources :projects
 
 
 end

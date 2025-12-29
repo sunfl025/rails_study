@@ -1,9 +1,10 @@
 class UsersController < ApplicationController
+  include UsersHelper
   before_action :set_user, only: %i[ show edit update destroy ]
 
   def index
     @users = User.all
-    render json: @users
+    # @users = User.where(username: "trang").order(created_at: :desc)
   end
 
   def show
@@ -47,4 +48,5 @@ class UsersController < ApplicationController
   def user_params
     params.require(:user).permit(:username, :email, :sex)
   end
+
 end

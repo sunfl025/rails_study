@@ -1,0 +1,25 @@
+<%= form_with model: @task,local:true do |form| %>
+  <div>
+    <%= form.label :name %>
+    <%= form.text_field :name, placeholder: "Enter name task" %>
+  </div>
+  <div>
+    <%= form.label :description %>
+    <%= form.text_field :description, placeholder: "Enter description task" %>
+  </div>
+    <div>
+    <%= form.label :position %>
+    <%= form.number_field:position, placeholder: "Enter position" %>
+  </div>
+    <div>
+   <%= form.label :completed %>
+  <%= select_tag(:completed, options_for_select([['not finished', 0], ['finished', 1]])) %>
+   </div>
+
+  <div>
+    <%= form.label :project_id %>
+    <%= form.number_field :project_id, placeholder: "Enter project id" %>
+  </div>
+ 
+  <%= form.submit %>
+<% end %>

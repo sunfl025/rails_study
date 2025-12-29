@@ -16,6 +16,9 @@ module RailsStudy
     # -- all .rb files in that directory are automatically loaded after loading
     # the framework and any gems in your application.
     config.file_watcher = ActiveSupport::FileUpdateChecker
+
+    config.time_zone = 'Asia/Ho_Chi_Minh'
+    config.active_record.default_timezone = :local
   end
 
 end

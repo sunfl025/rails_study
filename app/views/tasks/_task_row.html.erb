@@ -1,0 +1,13 @@
+  <tr>
+        <td><%= task.name %></td>
+        <td><%= task.description %></td>
+        <td><%= task.position %></td>
+        <td><%= format_date(task.created_at) %></td>
+        <td><%= task.completed ? "✅" : "❌" %></td>
+        <td><%= task.project.name if task.project %></td>
+        <td>
+          <%= link_to "Show", task_path(task), class: "btn btn-show" %>
+          <%= link_to "Edit", edit_task_path(task), class: "btn btn-edit" %>
+          <%= link_to "Delete", task_path(task), method: :delete,data:{confirm:"Are you sure?"}, class: "btn btn-delete" %>
+        </td>
+ </tr>
