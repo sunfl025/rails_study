@@ -28,7 +28,12 @@ class Ability
     #
     # See the wiki for details:
     # https://github.com/CanCanCommunity/cancancan/blob/develop/docs/define_check_abilities.md
-    user ||= User.new # guest user (not logged in)
-    can :read, Project
+    can :read, Task, public: true
+
+    return unless user.present?  # additional permissions for logged in users (they can read their own posts)
+    can :read, Task, user: user
+
+    return unless user.admin?  # additional permissions for administrators
+    can :read, Task
   end
 end
