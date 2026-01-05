@@ -1,0 +1,21 @@
+<% content_for :page_title do %>
+  User list
+<% end %>
+
+<%= link_to "➕ New User", new_admin_user_path,class: "btn btn-new" %>
+
+<table class="user-table">
+  <thead>
+    <tr>
+      <th>Username</th>
+      <th>Email</th>
+      <th>Gender</th>
+      <th>Created at</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <%= render partial: "user_row", collection: @users, as: :user %>
+  </tbody>
+</table>

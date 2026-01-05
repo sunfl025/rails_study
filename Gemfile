@@ -31,9 +31,13 @@ gem 'bootstrap', '~> 4.6', '>= 4.6.1'
 
 gem 'jquery-rails', '~> 4.6.1'
 
-gem 'cancancan'
+gem 'cancancan', '= 3.2.1'
 
-gem 'devise'
+gem 'devise', '~> 4.9'
+
+gem "interactor"
+
+
 
 gem 'letter_opener'
 

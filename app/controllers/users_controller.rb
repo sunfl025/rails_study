@@ -1,7 +1,8 @@
 class UsersController < ApplicationController
   include UsersHelper
   before_action :set_user, only: %i[ show edit update destroy ]
-
+   before_action :authenticate_user!
+  load_and_authorize_resource
   def index
     @users = User.all
     # @users = User.where(username: "trang").order(created_at: :desc)

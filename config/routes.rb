@@ -1,22 +1,39 @@
 Rails.application.routes.draw do
 
-  get 'home/index'
-  root "home#index"
-  devise_for :users
 
-  # get "/users", to: "users#index"
-  # # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
-  # get "/users/new", to: "users#new"
-  # post "/users", to: "users#create"
+  # ========== DEVise ==========
+  devise_for :users, path: '', path_names: {
+  sign_in: 'login',
+  sign_out: 'logout',
+  sign_up: 'register',
+  sessions: 'users/sessions'
+  }
+  # devise_for :users, controllers: {
+  #   sessions: 'users/sessions'
+  # }
+
+  devise_for :admins, controllers: {
+    sessions: 'admins/sessions'
+  }
+
+  # ========== ADMIN ==========
+  namespace :admin do
+    root "dashboard#index"
+    resources :users
+    resources :projects
+    resources :tasks
+  end
+
+  # ========== PUBLIC ==========
+  root "home#index"
+
   resources :users
+  resources :projects
   resources :tasks do
     collection do
       get :by_user
     end
   end
-  get "/projects", to: "projects#index"
-  resources :projects
-
 
 end
 

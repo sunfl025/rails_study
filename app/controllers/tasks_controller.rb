@@ -1,8 +1,11 @@
 class TasksController < ApplicationController
     before_action :set_task, only: %i[ show edit update destroy ]
-    
+    before_action :authenticate_user!
+    load_and_authorize_resource
     def index
-    @tasks = Task.all
+     @tasks = Task
+            .joins(:project)
+            .where(projects: { user_id: current_user.id })
 
         if params[:name].present?
             @tasks = @tasks.joins(:project)
@@ -25,23 +28,36 @@ class TasksController < ApplicationController
     def new
         @task = Task.new
     end
-    
-    def create
-    @task = Task.new(task_params)
 
-    if @task.save
-        redirect_to tasks_path
-    else
-        render json: { errors: @task.errors.full_messages }, status: :unprocessable_entity
+    def create
+        result = ::Tasks::Create.call(params: task_params)
+
+        if result.success?
+            redirect_to tasks_path, notice: "Task created successfully"
+        else
+            @task = Task.new(task_params)
+            flash.now[:alert] = result.errors.join(", ")
+            render :new, status: :unprocessable_entity
+        end
     end
-    end
+
+    # def create
+    # @task = Task.new(task_params)
+
+    # if @task.save
+    #     redirect_to tasks_path
+    # else
+    #     render json: { errors: @task.errors.full_messages }, status: :unprocessable_entity
+    # end
+    # end
 
     
     def edit
     end
     
     def update
-        if @task.update(task_params)
+        result = ::Tasks::Update.call(task:@task,params:task_params)
+        if result.success?
         redirect_to tasks_path
         else
         render :edit, status: :unprocessable_entity

@@ -1,0 +1,15 @@
+      <tr>
+        <td><%= user.username %></td>
+        <td><%= user.email %></td>
+        <td><%= sex_label(user) %></td>
+        <td><%= format_date(user.created_at) %></td>
+        <td class="actions">
+          <%= link_to "Show", admin_user_path(user), class: "btn btn-show" %>
+          <%= action_button("Edit", edit_admin_user_path(user), "edit") %>
+          <%= link_to "Delete",
+            admin_user_path(user),
+            method: :delete,
+            data: { confirm: "Are you sure?" },
+            class: "btn btn-delete" %>
+        </td>
+      </tr>

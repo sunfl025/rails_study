@@ -4,6 +4,20 @@ class Ability
   include CanCan::Ability
 
   def initialize(user)
+   user ||= User.new  # guest user
+
+    # USER thường
+    if user.user?
+      can :read, Project, user_id: user.id
+      can :create, Project
+      can [:update, :destroy], Project, user_id: user.id
+    
+    end
+
+    # ADMIN
+    if user.admin?
+      can :manage, :all
+    end
     # Define abilities for the user here. For example:
     #
     #   return unless user.present?
@@ -28,12 +42,6 @@ class Ability
     #
     # See the wiki for details:
     # https://github.com/CanCanCommunity/cancancan/blob/develop/docs/define_check_abilities.md
-    can :read, Task, public: true
-
-    return unless user.present?  # additional permissions for logged in users (they can read their own posts)
-    can :read, Task, user: user
-
-    return unless user.admin?  # additional permissions for administrators
-    can :read, Task
+    
   end
 end

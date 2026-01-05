@@ -6,7 +6,6 @@ class Task < ApplicationRecord
   before_save :normalize_name
   after_create :log_created_task
   belongs_to :project
-  
 
   private
 

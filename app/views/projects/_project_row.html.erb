@@ -1,0 +1,11 @@
+  <tr>
+        <td><%= project.name %></td>
+        <td><%= project.description %></td>
+        <td><%= project.user.username if project.user %></td>
+        <td><%= format_date(project.created_at) %></td>
+        <td>
+            <%= link_to "Show", project_path(project.id),class: "btn btn-show" %>
+            <%= link_to "Edit", edit_project_path(project.id),class: "btn btn-edit" %>
+            <%= link_to "Delete", project_path(project.id), method: :delete, data: { confirm: "Are you sure?" },class: "btn btn-delete" %>
+        </td>
+ </tr>
